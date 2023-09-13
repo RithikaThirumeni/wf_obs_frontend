@@ -8,6 +8,8 @@ import { ErrorPage } from './components/ErrorPage';
 import { Login } from './pages/Login/Login';
 import { Register } from './pages/Register/Register';
 import { Dashboard } from './components/Dashboard';
+import { DisplayAccounts } from './components/DisplayAccounts';
+import { CreateAccount } from './pages/CreateAccount/CreateAccount';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route exact path="/contact" element={<Contact/>} />
           <Route exact path="/login" element={<Login/>} />
           <Route exact path="/register" element={<Register/>} />
+          <Route exact path="/create-account" element={<CreateAccount/>} />
+          <Route exact path="/displayaccounts" element={<DisplayAccounts/>} />
           <Route exact path="*" element={<ErrorPage/>} />
         </Routes>
         </BrowserRouter>

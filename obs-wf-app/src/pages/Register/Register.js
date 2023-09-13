@@ -53,8 +53,12 @@ export const Register = () => {
         }
         customerRegister(data)
             .then((response) => {
-                console.log(response);
-                alert(response.data);
+                if(response.data.customerID){
+                    alert("register successful, customer saved");
+                }
+                else{
+                    alert(response.data.errors)
+                }
             })
             .catch( error => {
                 alert("Error = "+error);

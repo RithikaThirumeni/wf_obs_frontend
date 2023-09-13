@@ -22,14 +22,17 @@ export const Login = () => {
                 // console.log(response);
                 // alert("Customer ID = "+response.data.customerID);
                 if(response.data){
-                    navigate("/dashboard", {state: {
-                        customerID: response.data.customerID, 
-                        emailID: response.data.emailID,
-                        firstName: response.data.firstName,
-                        lastName: response.data.lastName,
-                        phoneNumber: response.data.phoneNumber,
-                        residentAddress: response.data.residentAddress,
-                        dateOfBirth: response.data.dateOfBirth,
+                    navigate("/dashboard", {
+                        state: {
+                        customerID: response.data.obj.customerID, 
+                        emailID: response.data.obj.emailID,
+                        firstName: response.data.obj.firstName,
+                        lastName: response.data.obj.lastName,
+                        phoneNumber: response.data.obj.phoneNumber,
+                        residentAddress: response.data.obj.residentAddress,
+                        dateOfBirth: response.data.obj.dateOfBirth,
+                        password: response.data.obj.password,
+                        pin: response.data.obj.pin 
                     }});
                     navigate(0);
                 }
