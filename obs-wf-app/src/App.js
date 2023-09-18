@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "./components/Home";
@@ -14,7 +13,7 @@ function App() {
   return (
     <div className="App">
       <div className="RouterPaths">
-        <h3>Routing to different paths</h3>
+        {/* <h3>Routing to different paths</h3> */}
         <BrowserRouter>
           <Routes>
             <Route exact path="/" element={<Home />} />

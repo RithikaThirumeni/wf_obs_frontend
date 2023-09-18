@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+}
+
+.text-field{
+    margin: 1rem;
+}
+
+.login-topbar{
+    background-color: rgb(221, 221, 255);
+    padding: 0.5rem;
+}
+
+.home-main{
+    background-size: cover;
+    background-image: url("https://britishmums.com/dubai/wp-content/uploads/2017/05/bigstock-Office-Background-107175260.jpg");
+    height: 100vh;
+}
+
+.home-register{
+    display: flex;
+    justify-content: flex-end;
+    margin: 0.5rem 1rem;
+}

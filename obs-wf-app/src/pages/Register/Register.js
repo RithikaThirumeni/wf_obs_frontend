@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Box, Button, Grid, Paper, TextField } from "@mui/material";
 import { useNavigate, Link } from "react-router-dom";
 import { customerRegister } from "../../services/RegisterService";
 import { Login } from "../Login/Login";
@@ -63,97 +64,108 @@ export const Register = () => {
   };
   return (
     <>
-      <form>
-        <label for="firstname">First name: </label>
-        <input
-          type="text"
-          name="firstname"
-          value={firstName}
-          placeholder="Enter First Name"
-          onChange={firstNameChangeHandler}
-          required
-        />
-        <br />
-        <label for="lastname">Last name: </label>
-        <input
-          type="text"
-          name="lastname"
-          value={lastName}
-          placeholder="Enter Last Name"
-          onChange={lastNameChangeHandler}
-          required
-        />
-        <br />
-        <label for="email">Email: </label>
-        <input
-          type="email"
-          name="email"
-          value={emailID}
-          placeholder="Enter Registered Email ID"
-          onChange={emailChangeHandler}
-          required
-        />
-        <br />
-        <label for="password">Password: </label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          placeholder="Enter Password"
-          onChange={passwordChangeHandler}
-          required
-        />
-        <br />
-        <label for="pin">Pin: </label>
-        <input
-          type="number"
-          name="pin"
-          value={pin}
-          placeholder="Enter 4 digit pin"
-          onChange={pinChangeHandler}
-          required
-        />
-        <br />
-        <label for="phoneNumer">PhoneNumner: </label>
-        <input
-          type="number"
-          name="phoneNumber"
-          value={phoneNumber}
-          placeholder="Enter Phone Number"
-          onChange={phoneNumberChangeHandler}
-          required
-        />
-        <br />
-        <label for="dateOfBirth">Date of Birth: </label>
-        <input
-          type="date"
-          name="dateOfBirth"
-          value={dateOfBirth}
-          placeholder="Enter Date of Birth"
-          onChange={dateOfBirthChangeHandler}
-          required
-        />
-        <br />
-        <label for="address">Resident Address: </label>
-        <input
-          type="text"
-          name="address"
-          value={residentAddress}
-          placeholder="Enter Resident Address"
-          onChange={residentAddressChangeHandler}
-          required
-        />
-        <br />
-        <button type="submit" onClick={submitActionHandler}>
-          Register Now
-        </button>
-      </form>
-      <h4>
-        <Link to="/login">Login with Email and Password</Link>
-      </h4>
-      <h4>
-        <Link to="/home">Go to Home</Link>
-      </h4>
+      <Box sx={{ display: 'inline-block' }}>
+        <Paper elevation={2} sx={{ padding: '1rem' }}>
+          <h3 style={{margin: "0 0 1rem 1rem"}}>Register</h3>
+          <form>
+            <Grid container paddingLeft={'1rem'} spacing={1}>
+              <Grid item xs={5}>
+                <label for="firstname">First name: </label>
+                <TextField
+
+                  size="small"
+                  name="firstname"
+                  value={firstName}
+                  placeholder="First Name"
+                  onChange={firstNameChangeHandler}
+                  required
+                />
+              </Grid>
+              <Grid item xs={5}>
+                <label for="lastname">Last name: </label>
+                <TextField
+
+                  size="small"
+                  name="lastname"
+                  value={lastName}
+                  placeholder="Last Name"
+                  onChange={lastNameChangeHandler}
+                  required
+                />
+              </Grid>
+            </Grid>
+
+            <div className="text-field">
+              <label style={{ display: 'block' }} for="password">Password: </label>
+              <TextField
+                size="small"
+                type="password"
+                name="password"
+                value={password}
+                placeholder="Enter Password"
+                onChange={passwordChangeHandler}
+                required
+              />
+            </div>
+
+            <div className="text-field">
+              <label style={{ display: 'block' }} for="phoneNumer">PhoneNumner: </label>
+              <TextField
+                size="small"
+                type="number"
+                name="phoneNumber"
+                value={phoneNumber}
+                placeholder="Enter Phone Number"
+                onChange={phoneNumberChangeHandler}
+                required
+              />
+            </div>
+
+            <div className="text-field">
+              <label style={{ display: 'block' }} for="dateOfBirth">Date of Birth: </label>
+              <TextField
+                size="small"
+                type="date"
+                name="dateOfBirth"
+                value={dateOfBirth}
+                onChange={dateOfBirthChangeHandler}
+                required
+              />
+            </div>
+
+            <div className="text-field">
+              <label style={{ display: 'block' }} for="address">Resident Address: </label>
+              <TextField
+                size="small"
+                name="address"
+                value={residentAddress}
+                placeholder="Enter Resident Address"
+                multiline
+                fullWidth
+                rows={2}
+                onChange={residentAddressChangeHandler}
+                required
+              />
+            </div>
+
+            <Button sx={{ml: "1rem"}} type="submit" variant="contained" onClick={submitActionHandler}>
+              Register Now
+            </Button>
+          </form>
+          <Grid container spacing={1} sx={{m: "0.5rem 0.5rem"}}>
+            <Grid item xs={6}>
+              <h4>
+                <Link to="/login">Login with Email and Password</Link>
+              </h4>
+            </Grid>
+            <Grid item xs={6}>
+              <h4>
+                <Link to="/home">Go to Home</Link>
+              </h4>
+            </Grid>
+          </Grid>
+        </Paper>
+      </Box>
     </>
   );
 };
