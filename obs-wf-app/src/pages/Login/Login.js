@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { customerLogin } from "../../services/LoginService";
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { Button, Grid } from "@mui/material";
+import axios from "axios";
 
 export const Login = (props) => {
   const navigate = useNavigate();
@@ -18,39 +18,23 @@ export const Login = (props) => {
   function handleForgotPassword(){
     props.forgotPasswordBtnClick(true)
   }
-  const submitActionHandler = (Event) => {
+  const submitActionHandler = async (Event) => {
     Event.preventDefault();
-    const data = {
-      email: emailID,
-      pwd: password,
-    };
-    // console.log(data);
-    customerLogin(data).then((response) => {
-      console.log(response);
-      // alert("Customer ID = "+response.data.customerID);
-      if (response.data) {
-        navigate("/dashboard", {
-          state: {
-            customerId: response.data.customerdata.customerId,
-            email: response.data.customerdata.email,
-            firstName: response.data.customerdata.firstName,
-            lastName: response.data.customerdata.lastName,
-            phoneNumber: response.data.customerdata.phoneNumber,
-            address: response.data.customerdata.address,
-            dateOfBirth: response.data.customerdata.dateOfBirth,
-          },
-        });
-        navigate(0);
-      } else alert("Login failed");
-    });
+    await axios
+      .post("http://localhost:8080/customer/verifyCustomer/", {
+        email: emailID,
+        password: password,
+      })
+      .then((res) => {
+        let loggedInCustomer = res.data.customerdata;
+        sessionStorage.setItem(
+          "loggedInCustomer",
+          JSON.stringify(loggedInCustomer)
+        );
+        navigate("/dashboard");
+      });
   };
-  // const cancelActionHandler = (Event) => {
-  //   setEmailID("");
-  //   setPassword("");
-  // };
-  // const registerActionHandler = (Event) => {
-  //   navigate("/register");
-  // };
+
   return (
     <>
       <form onSubmit={submitActionHandler}>

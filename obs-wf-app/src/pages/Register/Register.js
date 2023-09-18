@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Box, Button, Grid, Paper, TextField } from "@mui/material";
 import { useNavigate, Link } from "react-router-dom";
-import { customerRegister } from "../../services/RegisterService";
-import { Login } from "../Login/Login";
-import { Home } from "../../components/Home";
+import axios from "axios";
+
 export const Register = () => {
   const navigate = useNavigate();
 
@@ -41,25 +40,21 @@ export const Register = () => {
     setDateOfBirth(Event.target.value);
   };
 
-  const submitActionHandler = (Event) => {
+  const submitActionHandler = async (Event) => {
     Event.preventDefault();
-    const data = {
-      firstName: firstName,
-      lastName: lastName,
-      phoneNumber: phoneNumber,
-      email: emailID,
-      address: residentAddress,
-      dateOfBirth: dateOfBirth,
-      password: password,
-      pin: pin,
-    };
-    customerRegister(data)
-      .then((response) => {
-        console.log(response);
-        alert(response.data.responseText);
+    await axios
+      .post("http://localhost:8080/customer/addCustomer/", {
+        firstName: firstName,
+        lastName: lastName,
+        phoneNumber: phoneNumber,
+        email: emailID,
+        address: residentAddress,
+        dateOfBirth: dateOfBirth,
+        password: password,
+        pin: pin,
       })
-      .catch((error) => {
-        alert("Error = " + error);
+      .then((res) => {
+        console.log(res.data);
       });
   };
   return (
