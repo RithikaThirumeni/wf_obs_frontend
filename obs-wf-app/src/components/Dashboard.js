@@ -1,17 +1,17 @@
 import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function Dashboard() {
-  const { state } = useLocation();
-  const {
-    customerId,
-    email,
-    firstName,
-    lastName,
-    phoneNumber,
-    address,
-    dateOfBirth,
-  } = state;
+  const customer = JSON.parse(sessionStorage.getItem("loggedInCustomer"));
+
+  const customerId = customer.customerId;
+  const email = customer.email;
+  const firstName = customer.firstName;
+  const lastName = customer.lastName;
+  const phoneNumber = customer.phoneNumber;
+  const address = customer.address;
+  const dateOfBirth = customer.dateOfBirth;
+
   console.log(customerId);
   console.log(email);
   console.log(firstName);

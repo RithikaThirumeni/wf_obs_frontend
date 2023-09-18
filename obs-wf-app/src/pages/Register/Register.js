@@ -59,15 +59,14 @@ export const Register = () => {
   };
   return (
     <>
-      <Box sx={{ display: 'inline-block' }}>
-        <Paper elevation={2} sx={{ padding: '1rem' }}>
-          <h3 style={{margin: "0 0 1rem 1rem"}}>Register</h3>
+      <Box sx={{ display: "inline-block" }}>
+        <Paper elevation={2} sx={{ padding: "1rem" }}>
+          <h3 style={{ margin: "0 0 1rem 1rem" }}>Register</h3>
           <form>
-            <Grid container paddingLeft={'1rem'} spacing={1}>
+            <Grid container paddingLeft={"1rem"} spacing={1}>
               <Grid item xs={5}>
                 <label for="firstname">First name: </label>
                 <TextField
-
                   size="small"
                   name="firstname"
                   value={firstName}
@@ -79,7 +78,6 @@ export const Register = () => {
               <Grid item xs={5}>
                 <label for="lastname">Last name: </label>
                 <TextField
-
                   size="small"
                   name="lastname"
                   value={lastName}
@@ -91,7 +89,9 @@ export const Register = () => {
             </Grid>
 
             <div className="text-field">
-              <label style={{ display: 'block' }} for="password">Password: </label>
+              <label style={{ display: "block" }} for="password">
+                Password:{" "}
+              </label>
               <TextField
                 size="small"
                 type="password"
@@ -104,7 +104,24 @@ export const Register = () => {
             </div>
 
             <div className="text-field">
-              <label style={{ display: 'block' }} for="phoneNumer">PhoneNumner: </label>
+              <label style={{ display: "block" }} for="email">
+                Email:{" "}
+              </label>
+              <TextField
+                size="small"
+                type="email"
+                name="emailID"
+                value={emailID}
+                placeholder="Enter Email"
+                onChange={emailChangeHandler}
+                required
+              />
+            </div>
+
+            <div className="text-field">
+              <label style={{ display: "block" }} for="phoneNumer">
+                PhoneNumner:{" "}
+              </label>
               <TextField
                 size="small"
                 type="number"
@@ -117,7 +134,9 @@ export const Register = () => {
             </div>
 
             <div className="text-field">
-              <label style={{ display: 'block' }} for="dateOfBirth">Date of Birth: </label>
+              <label style={{ display: "block" }} for="dateOfBirth">
+                Date of Birth:{" "}
+              </label>
               <TextField
                 size="small"
                 type="date"
@@ -129,7 +148,9 @@ export const Register = () => {
             </div>
 
             <div className="text-field">
-              <label style={{ display: 'block' }} for="address">Resident Address: </label>
+              <label style={{ display: "block" }} for="address">
+                Resident Address:{" "}
+              </label>
               <TextField
                 size="small"
                 name="address"
@@ -143,11 +164,16 @@ export const Register = () => {
               />
             </div>
 
-            <Button sx={{ml: "1rem"}} type="submit" variant="contained" onClick={submitActionHandler}>
+            <Button
+              sx={{ ml: "1rem" }}
+              type="submit"
+              variant="contained"
+              onClick={submitActionHandler}
+            >
               Register Now
             </Button>
           </form>
-          <Grid container spacing={1} sx={{m: "0.5rem 0.5rem"}}>
+          <Grid container spacing={1} sx={{ m: "0.5rem 0.5rem" }}>
             <Grid item xs={6}>
               <h4>
                 <Link to="/login">Login with Email and Password</Link>
