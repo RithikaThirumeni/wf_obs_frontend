@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Title from './Title';
 import { Portal } from '@mui/base/Portal';
@@ -53,16 +54,16 @@ export default function AccountSummary() {
                   onChange={accountNumberChangeHandler}
                   value={accountNumber} />
           </Typography>
-          <Typography color="text.secondary" sx={{ flex: 1 }}>
-              Enter Account Number
-          </Typography>
-          <Box sx={{ p: 1, my: 1 }} ref={container} />
-          <div>
-              <MaterialLink component={Link} color="primary" to="#" onClick={displaySummaryActionHandler}>
-                  View Summary
-              </MaterialLink>
-          </div>
-          <AccountSummaryTable accountSummary={accountSummary} alert={alert}></AccountSummaryTable>
+          <br></br>
+              <Button
+                type="submit"
+                variant="contained"
+                onClick={displaySummaryActionHandler}
+              >
+              View Summary
+            </Button>
+          
+          {/* <AccountSummaryTable accountSummary={accountSummary} alert={alert}></AccountSummaryTable> */}
       </React.Fragment>
       
   );
