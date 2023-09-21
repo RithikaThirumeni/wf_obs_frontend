@@ -29,7 +29,7 @@ export default function CustomerCard() {
           Customer ID - {sessionStorage.getItem("customerID")}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {sessionStorage.getItem("residentAddress")}
+          {sessionStorage.getItem("activeStatus")?(<p>Inactive</p>):(<p>Active</p>)}
         </Typography>
         <Typography variant="body2">
           Phone Number : {sessionStorage.getItem("phoneNumber")}, Email : {sessionStorage.getItem("emailID")}

@@ -18,11 +18,9 @@ import MaterialLink from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { MyDrawer } from '../../components/Drawer';
-import { AllAccounts } from './AllAccounts';
-import AccountStatement from './AccountStatement';
-import AccountSummary from './AccountSummary';
-
+import AdminCard from  './AdminCard';
+import AllUsers from './AllUsers';
+import { MyAdminDrawer } from '../../../components/AdminDrawer';
 
 function Copyright(props) {
   return (
@@ -39,12 +37,12 @@ function Copyright(props) {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function AccountMUI() {
+export default function AdminDashboardMUI() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <MyDrawer/>
+        <MyAdminDrawer/>
         <Box
           component="main"
           sx={{
@@ -60,37 +58,19 @@ export default function AccountMUI() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              <Grid item xs={12} md={12} lg={12}>
+              {/* Chart */}
+              <Grid item xs={12} md={8} lg={9}>
               
-                    <AllAccounts/>
+                    <AdminCard/>
                 
               </Grid>
-             
-              <Grid item xs={12} md={12} lg={12}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <AccountSummary />
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={12} lg={12}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 480,
-                  }}
-                >
-                  <AccountStatement />
-                </Paper>
-              </Grid>
               
+              {/* Recent Orders */}
+              <Grid item xs={12}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                  <AllUsers />
+                </Paper>
+              </Grid>
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
@@ -99,4 +79,3 @@ export default function AccountMUI() {
     </ThemeProvider>
   );
 }
-

@@ -9,19 +9,19 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
-import Title from './Title';
+import Title from '../../Accounts/Title';
 import { Portal } from '@mui/base/Portal';
 import { Box } from '@mui/system';
-import { displayAccounts } from '../../services/DisplayAccountService';
-import AccountsTable from './AccountsTable';
+import { displayCustomers } from '../../../services/DisplayCustomersService';
+import UsersTable from './UsersTable';
 
-export function AllAccounts(){
-    const [accountList, setAccountList] = useState("");
+export function VerifyUsers(){
+    const [userList, setUserList] = useState("");
     function handleClick(event) {
-        displayAccounts()
+        displayCustomers()
         .then((response)=>{
-            setAccountList(response.data.obj);
-            console.log(accountList);
+            setUserList(response.data.obj);
+            console.log(userList);
         })
     }
     return (
@@ -32,10 +32,10 @@ export function AllAccounts(){
                 type="primary"
                 onClick={handleClick}
               >
-              View All Accounts
+              View All Users
             </Button>
             <br></br>
-          <AccountsTable accountList={accountList}></AccountsTable>
+          <UsersTable userList={userList}></UsersTable>
         </React.Fragment>
     );
 }

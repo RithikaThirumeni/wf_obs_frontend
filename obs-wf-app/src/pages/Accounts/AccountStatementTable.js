@@ -11,11 +11,13 @@ export default function AccountStatementTable({alert, accountStatement}) {
     console.log(accountStatement);
   return (
     <React.Fragment>
-      <Title>Account Statement</Title>
+      
       
       {alert
         ?(
+            
         <Box>
+            <Title>Account Statement</Title>
         {/* <ul>{accountSummary?.map(item=>{return <li>{item[0].transactionID}</li>;})}</ul> */}
         <Table size="small">
         <TableHead>

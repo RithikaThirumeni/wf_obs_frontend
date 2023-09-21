@@ -19,9 +19,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { MyDrawer } from '../../components/Drawer';
-import { AllAccounts } from './AllAccounts';
-import AccountStatement from './AccountStatement';
-import AccountSummary from './AccountSummary';
+import { Withdraw } from './Withdraw';
+import FundTransfer from './FundTransfer'
+import {Deposit} from './Deposit';
 
 
 function Copyright(props) {
@@ -39,7 +39,7 @@ function Copyright(props) {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function AccountMUI() {
+export default function TransactionMUI() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -60,37 +60,23 @@ export default function AccountMUI() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              <Grid item xs={12} md={12} lg={12}>
+              <Grid item xs={4} md={4} lg={4}>
               
-                    <AllAccounts/>
+                    <Deposit/>
                 
               </Grid>
              
-              <Grid item xs={12} md={12} lg={12}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <AccountSummary />
-                </Paper>
+              <Grid item xs={4} md={4} lg={4}>
+                
+                  <Withdraw />
+                
               </Grid>
-              <Grid item xs={12} md={12} lg={12}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 480,
-                  }}
-                >
-                  <AccountStatement />
-                </Paper>
+              <Grid item xs={4} md={4} lg={4}>
+                
+                  <FundTransfer />
+                
               </Grid>
-              
+             
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>

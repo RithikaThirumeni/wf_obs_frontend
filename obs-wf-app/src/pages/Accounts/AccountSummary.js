@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import Title from './Title';
 import { Portal } from '@mui/base/Portal';
@@ -18,8 +19,11 @@ export default function AccountSummary() {
 
   const [alert, setAlert] = useState(false);
   const [errors, setErrors] = useState(false);
+  const [errorText, setErrorText] = useState("");
   var [accountSummary, setAccountSummary] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
+  // const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const [anchorEl, setAnchorEl] = React.useState("");
   const accountNumberChangeHandler=(event)=>{
     setAccountNumber(event.target.value);
   }
@@ -29,19 +33,29 @@ export default function AccountSummary() {
     displayAccountSummary(accountNumber)
       .then((response)=>{
         if(response.data.responseText==="sucessfully retrieved summary"){
+          setErrors(false);
           setAlert(true);
           setAccountSummary(response.data.obj);
           console.log(accountSummary);
         }
         else{
             setErrors(true);
-            setAccountSummary(response.data.responseText);
+            setErrorText(response.data.responseText);
         }
         console.log(response);
         
       })
+      setAnchorEl(event.currentTarget);
   }
+
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
   return (
+    <div>
     <React.Fragment>
           <Title>Account Summary
           </Title>
@@ -55,16 +69,33 @@ export default function AccountSummary() {
                   value={accountNumber} />
           </Typography>
           <br></br>
-              <Button
+              <Button 
                 type="submit"
                 variant="contained"
                 onClick={displaySummaryActionHandler}
               >
               View Summary
             </Button>
+            
+            <Typography sx={{ p: 2 }}>{errors?(<p>{errorText}</p>):(
+              <Popover
+              id='simplle-popover'
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              transformOrigin={{
+                vertical: 'center',
+                horizontal: 'center',
+              }}
+            >
+              <AccountSummaryTable accountSummary={accountSummary} alert={alert}></AccountSummaryTable>
+            </Popover>
+            )}</Typography>
           
-          {/* <AccountSummaryTable accountSummary={accountSummary} alert={alert}></AccountSummaryTable> */}
       </React.Fragment>
-      
+        {/* <AccountSummaryTable accountSummary={accountSummary} alert={alert}></AccountSummaryTable> */}
+      </div>
   );
 }
+
+

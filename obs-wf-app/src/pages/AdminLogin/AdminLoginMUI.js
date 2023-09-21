@@ -15,7 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useState } from "react";
 import { useNavigate, Link} from "react-router-dom"
-import { customerLogin } from "../../services/LoginService";
+import { adminLogin } from "../../services/AdminLoginService";
 import { Alert, Hidden } from '@mui/material';
 
 function Copyright(props) {
@@ -52,30 +52,18 @@ export default function SignInSide() {
             "emailID":formdata.get('email'),
             "password":formdata.get('password')
         }
-        customerLogin(data)
+        adminLogin(data)
             .then((response) => {
               
-                sessionStorage.setItem("customerID", response.data.obj.customerID);
+                sessionStorage.setItem("adminID", response.data.obj.adminID);
                 sessionStorage.setItem("emailID", response.data.obj.emailID);
-                sessionStorage.setItem("firstName", response.data.obj.firstName);
-                sessionStorage.setItem("lastName", response.data.obj.lastName);
-                sessionStorage.setItem("phoneNumber", response.data.obj.phoneNumber);
-                sessionStorage.setItem("residentAddress", response.data.obj.residentAddress);
-                sessionStorage.setItem("dateOfBirth", response.data.obj.dateOfBirth);
                 sessionStorage.setItem("password", response.data.obj.password);
-                sessionStorage.setItem("pin", response.data.obj.pin );
                 if(response.data.responseText==="Login Successful"){
-                    navigate("/customerdashboard", {
+                    navigate("/admindashboard", {
                         state: {
-                        customerID: response.data.obj.customerID, 
+                        adminID: response.data.obj.adminID, 
                         emailID: response.data.obj.emailID,
-                        firstName: response.data.obj.firstName,
-                        lastName: response.data.obj.lastName,
-                        phoneNumber: response.data.obj.phoneNumber,
-                        residentAddress: response.data.obj.residentAddress,
-                        dateOfBirth: response.data.obj.dateOfBirth,
-                        password: response.data.obj.password,
-                        pin: response.data.obj.pin 
+                        password: response.data.obj.password
                     }});
                     navigate(0);
                 }
@@ -152,18 +140,8 @@ export default function SignInSide() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <MaterialLink href="#" variant="body2">
-                    Forgot password?
-                  </MaterialLink>
-                </Grid>
-                <Grid item sx={{flex:1}}>
-                  <MaterialLink component={Link} to="/register" variant="body2">
-                    {"Register Now"}
-                  </MaterialLink>
-                </Grid>
-                <Grid item>
-                  <MaterialLink component={Link} to="/adminlogin" variant="body2">
-                    {"Login as Admin"}
+                  <MaterialLink component={Link} to="/login" variant="body2">
+                    Customer Login
                   </MaterialLink>
                 </Grid>
               </Grid>

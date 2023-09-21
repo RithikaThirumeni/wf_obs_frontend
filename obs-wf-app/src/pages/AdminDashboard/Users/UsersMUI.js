@@ -18,10 +18,9 @@ import MaterialLink from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { MyDrawer } from '../../components/Drawer';
-import { AllAccounts } from './AllAccounts';
-import AccountStatement from './AccountStatement';
-import AccountSummary from './AccountSummary';
+import { MyAdminDrawer } from '../../../components/AdminDrawer';
+import { CustomerAccounts } from './CustomerAccounts';
+import UserVerify from './UserVerify';
 
 
 function Copyright(props) {
@@ -44,7 +43,7 @@ export default function AccountMUI() {
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <MyDrawer/>
+        <MyAdminDrawer/>
         <Box
           component="main"
           sx={{
@@ -62,35 +61,14 @@ export default function AccountMUI() {
             <Grid container spacing={3}>
               <Grid item xs={12} md={12} lg={12}>
               
-                    <AllAccounts/>
+                    <CustomerAccounts></CustomerAccounts>
                 
-              </Grid>
-             
-              <Grid item xs={12} md={12} lg={12}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <AccountSummary />
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={12} lg={12}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 480,
-                  }}
-                >
-                  <AccountStatement />
-                </Paper>
-              </Grid>
+              </Grid> 
+              <Grid item xs={4} md={4} lg={4}>
               
+                    <UserVerify></UserVerify>
+                
+              </Grid>             
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
@@ -99,4 +77,3 @@ export default function AccountMUI() {
     </ThemeProvider>
   );
 }
-
