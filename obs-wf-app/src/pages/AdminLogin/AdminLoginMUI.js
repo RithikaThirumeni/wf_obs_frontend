@@ -44,17 +44,12 @@ export default function SignInSide() {
         event.preventDefault();
         
         const formdata = new FormData(event.currentTarget);
-        console.log({
-        email: formdata.get('email'),
-        password: formdata.get('password'),
-        });
         const data = {
             "emailID":formdata.get('email'),
             "password":formdata.get('password')
         }
         adminLogin(data)
             .then((response) => {
-              
                 sessionStorage.setItem("adminID", response.data.obj.adminID);
                 sessionStorage.setItem("emailID", response.data.obj.emailID);
                 sessionStorage.setItem("password", response.data.obj.password);
@@ -106,7 +101,7 @@ export default function SignInSide() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Admin Login
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField

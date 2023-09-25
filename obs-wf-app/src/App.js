@@ -17,6 +17,7 @@ import { Accounts } from './pages/Accounts/Accounts';
 import { Transactions } from './pages/Transactions/Transactions';
 import { AdminDashboard } from './pages/AdminDashboard/Dashboard/AdminDashboard';
 import { Users } from './pages/AdminDashboard/Users/Users';
+import { UpdateProfile } from './pages/UpdateProfile/UpdateProfile';
 function App() {
   return (
     <div className="App">
@@ -28,7 +29,7 @@ function App() {
           <Route exact path="/home" element={<Home/>} />
           <Route exact path="/customerdashboard" element={<CustomerDashboard/>} />
           <Route exact path="/createaccount" element={<CreateAccount/>} />
-          <Route exact path="/updateprofile" element={<Contact/>} />
+          <Route exact path="/updateprofile" element={<UpdateProfile/>} />
           <Route exact path="/login" element={<Login/>} />
           <Route exact path="/adminlogin" element={<AdminLogin/>} />
           <Route exact path="/admindashboard" element={<AdminDashboard/>} />

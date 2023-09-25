@@ -46,7 +46,7 @@ export function Deposit() {
     const formdata = new FormData(event.currentTarget);
     const data = {
         "accountNumber":Number(formdata.get('accountNumber')),
-        "amount":Number(formdata.get('amount')),
+        "amount":parseFloat(formdata.get('amount')),
     }
     console.log(data.amount);
     deposit(data)

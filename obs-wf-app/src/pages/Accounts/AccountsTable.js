@@ -20,6 +20,7 @@ export default function AccountsTable({accountList}) {
             <TableCell>Open Date</TableCell>
             <TableCell>Credit Card Required</TableCell>
             <TableCell>Debit Card Required</TableCell>
+            <TableCell>Account Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -30,6 +31,7 @@ export default function AccountsTable({accountList}) {
               <TableCell>{item.openDate}</TableCell>
               <TableCell>{item.creditCardReq?(<p>yes</p>):(<p>no</p>)}</TableCell>                         
               <TableCell>{item.debitCardReq?(<p>yes</p>):(<p>no</p>)}</TableCell>
+              <TableCell>{item.activeStatus?(<p>Active</p>):(<p>Disabled</p>)}</TableCell>
             </TableRow>
           ))):null}
         </TableBody>

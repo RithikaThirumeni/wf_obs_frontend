@@ -22,6 +22,7 @@ import { MyDrawer } from '../../components/Drawer';
 import { AllAccounts } from './AllAccounts';
 import AccountStatement from './AccountStatement';
 import AccountSummary from './AccountSummary';
+import AccountBalance from './AccountBalance';
 
 
 function Copyright(props) {
@@ -61,34 +62,25 @@ export default function AccountMUI() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               <Grid item xs={12} md={12} lg={12}>
-              
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                     <AllAccounts/>
-                
+                </Paper>
               </Grid>
              
-              <Grid item xs={12} md={12} lg={12}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
+              <Grid item xs={4} md={4} lg={4}>
+                
                   <AccountSummary />
-                </Paper>
+                
               </Grid>
-              <Grid item xs={12} md={12} lg={12}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 480,
-                  }}
-                >
+              <Grid item xs={4} md={4} lg={4}>
+                
                   <AccountStatement />
-                </Paper>
+                
+              </Grid>
+              <Grid item xs={4} md={4} lg={4}>
+                
+                  <AccountBalance />
+                
               </Grid>
               
             </Grid>

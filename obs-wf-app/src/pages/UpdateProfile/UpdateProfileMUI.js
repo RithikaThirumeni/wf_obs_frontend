@@ -19,27 +19,14 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Alert, Hidden } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom"
-import { customerRegister } from "../../services/RegisterService";
+import { updateCustomer } from "../../services/CustomerUpdateService";
 import { AccountCircleOutlined } from '@mui/icons-material';
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <MaterialLink component={Link} color="inherit" to="/home">
-        Visit Home Page
-      </MaterialLink>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
-export default function SignUp() {
+export default function UpdateCustomer() {
 
     const navigate = useNavigate();
     const [alert, setAlert] = useState(false);
@@ -59,11 +46,21 @@ export default function SignUp() {
         "password":formdata.get('password'),
         "pin":formdata.get('pin')
     }
-    customerRegister(data)
+    
+    updateCustomer(data)
         .then((response) => {
-            if(response.data.responseText==="Save Successful!"){
+            if(response.data.responseText==="Updated Customer"){
                 setAlertContent(response.data.responseText);
                 setAlert(true);
+                console.log(response)
+                sessionStorage.setItem("emailID", response.data.obj.emailID);
+                sessionStorage.setItem("firstName", response.data.obj.firstName);
+                sessionStorage.setItem("lastName", response.data.obj.lastName);
+                sessionStorage.setItem("phoneNumber", response.data.obj.phoneNumber);
+                sessionStorage.setItem("residentAddress", response.data.obj.residentAddress);
+                sessionStorage.setItem("dateOfBirth", response.data.obj.dateOfBirth);
+                sessionStorage.setItem("password", response.data.obj.password);
+                sessionStorage.setItem("pin", response.data.obj.pin );
             }
             else{
                 setAlertContent(response.data.responseText+" "+response.data.errors);
@@ -71,7 +68,7 @@ export default function SignUp() {
             }
             
         })
-        .catch( error => {
+        .catch( (error) => {
           setAlertContent(error);
           setAlert(true);
         });
@@ -93,7 +90,7 @@ export default function SignUp() {
             <AccountCircleOutlined/>
           </Avatar>
           <Typography component="h1" variant="h5">
-            Register Customer
+            Update Customer
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -105,6 +102,7 @@ export default function SignUp() {
                   fullWidth
                   id="firstName"
                   label="First Name"
+                  defaultValue={sessionStorage.getItem("firstName")}
                   autoFocus
                 />
               </Grid>
@@ -116,6 +114,7 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  defaultValue={sessionStorage.getItem("lastName")}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -126,6 +125,7 @@ export default function SignUp() {
                   label="Email Address"
                   name="emailID"
                   autoComplete="email"
+                  defaultValue={sessionStorage.getItem("emailID")}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -137,6 +137,7 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  defaultValue={sessionStorage.getItem("password")}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -146,6 +147,7 @@ export default function SignUp() {
                   id="phoneNumber"
                   label="Phone Number"
                   name="phoneNumber"
+                  defaultValue={sessionStorage.getItem("phoneNumber")}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -156,6 +158,7 @@ export default function SignUp() {
                   label="Resident Address"
                   name="residentAddress"
                   autoComplete="City"
+                  defaultValue={sessionStorage.getItem("residentAddress")}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -167,6 +170,7 @@ export default function SignUp() {
                   name="pin"
                   autoComplete="pin"
                   helperText="Please enter a 4 digit pin"
+                  defaultValue={sessionStorage.getItem("pin")}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -178,6 +182,7 @@ export default function SignUp() {
                   label="Date of Birth"
                   name="dateOfBirth"
                   autoComplete="dateOfBirth"
+                  defaultValue={sessionStorage.getItem("dateOfBirth")}
                 />
               </Grid>
             </Grid>
@@ -188,18 +193,17 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Update Details
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <MaterialLink component={Link} to="/login" variant="body2">
-                  Already have an account? Sign in
+                <MaterialLink component={Link} to="/customerdashboard" variant="body2">
+                  Go to Dashboard
                 </MaterialLink>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

@@ -14,23 +14,45 @@ import { Portal } from '@mui/base/Portal';
 import { Box } from '@mui/system';
 import { displayAccountSummary } from '../../services/AccountSummaryService';
 import AccountSummaryTable from './AccountSummaryTable';
+import { styled } from '@mui/material/styles';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Collapse from '@mui/material/Collapse';
+import Avatar from '@mui/material/Avatar';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import CssBaseline from '@mui/material/CssBaseline';
+import { red } from '@mui/material/colors';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 
 export default function AccountSummary() {
-
+  const [expanded, setExpanded] = React.useState(false);
   const [alert, setAlert] = useState(false);
   const [errors, setErrors] = useState(false);
   const [errorText, setErrorText] = useState("");
-  var [accountSummary, setAccountSummary] = useState("");
-  const [accountNumber, setAccountNumber] = useState("");
-  // const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
   const [anchorEl, setAnchorEl] = React.useState("");
-  const accountNumberChangeHandler=(event)=>{
-    setAccountNumber(event.target.value);
-  }
+  var [accountSummary, setAccountSummary] = useState("");
   const container = React.useRef(null);
-  function displaySummaryActionHandler(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    displayAccountSummary(accountNumber)
+    const formdata = new FormData(event.currentTarget);
+    const data = {
+        "accountNumber":Number(formdata.get('accountNumber'))
+    }
+    displayAccountSummary(formdata.get('accountNumber'))
       .then((response)=>{
         if(response.data.responseText==="sucessfully retrieved summary"){
           setErrors(false);
@@ -44,40 +66,73 @@ export default function AccountSummary() {
         }
         console.log(response);
         
-      })
+      }) 
       setAnchorEl(event.currentTarget);
   }
-
-
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const open = Boolean(anchorEl);
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   return (
-    <div>
-    <React.Fragment>
-          <Title>Account Summary
-          </Title>
-          <Typography component="p" variant="h4">
-              <TextField inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-                  required
-                  id="accountNumber"
-                  label="Account Number"
-                  name="accountNumber"
-                  onChange={accountNumberChangeHandler}
-                  value={accountNumber} />
-          </Typography>
-          <br></br>
-              <Button 
-                type="submit"
-                variant="contained"
-                onClick={displaySummaryActionHandler}
-              >
-              View Summary
-            </Button>
-            
-            <Typography sx={{ p: 2 }}>{errors?(<p>{errorText}</p>):(
+    <Card sx={{ maxWidth: 345 }}>
+      <CardHeader
+        avatar={
+          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+            S
+          </Avatar>
+        }
+        
+      />
+      <CardContent>
+        <Typography variant="h3" color="text.primary">
+          Account Summary
+        </Typography>
+      </CardContent>
+      <CardActions disableSpacing>
+        
+        <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </ExpandMore>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Container component="main" maxWidth="xs">
+          <CssBaseline />
+            <Box>
+              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={12}>
+                      <TextField inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                        required
+                        fullWidth
+                        id="accountNumber"
+                        label="Account Number"
+                        name="accountNumber"
+                        />
+                  </Grid>
+                </Grid>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  View Summary
+                </Button>
+              </Box>
+            </Box>
+          </Container>
+          <Typography sx={{ p: 2 }}>{errors?(<p>{errorText}</p>):(
               <Popover
               id='simplle-popover'
               open={open}
@@ -91,11 +146,8 @@ export default function AccountSummary() {
               <AccountSummaryTable accountSummary={accountSummary} alert={alert}></AccountSummaryTable>
             </Popover>
             )}</Typography>
-          
-      </React.Fragment>
-        {/* <AccountSummaryTable accountSummary={accountSummary} alert={alert}></AccountSummaryTable> */}
-      </div>
+        </CardContent>
+      </Collapse>
+    </Card>
   );
 }
-
-

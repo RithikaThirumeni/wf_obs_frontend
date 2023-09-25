@@ -9,33 +9,34 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
-import Title from '../../Accounts/Title';
+import Title from './Title';
 import { Portal } from '@mui/base/Portal';
 import { Box } from '@mui/system';
-import { displayCustomers } from '../../../services/DisplayCustomersService';
-import UsersTable from './UsersTable';
+import { transactionSummary } from '../../services/TransactionSummaryService';
+import TransactionsTable from './TransactionsTable';
 
-export function CustomerAccounts(){
-    const [userList, setUserList] = useState("");
+export default function AllTransactions(){
+    const [translist, setTranslist] = useState("");
     function handleClick(event) {
-        displayCustomers()
+        transactionSummary()
         .then((response)=>{
-            setUserList(response.data.obj);
-            console.log(userList);
+            setTranslist(response.data.obj);
+            console.log(translist);
         })
     }
     return (
         <React.Fragment>
-            <Title>Customer Accounts
-          </Title>
-          <Button 
-                type="primary"
+            <Title>Recent Transactions made by {sessionStorage.getItem("firstName")}</Title>
+            <Button 
+                sx={{ mt: 3, mb: 2 }}
+                type="submit"
+                variant="contained"
                 onClick={handleClick}
               >
-              View All Users
+              Click to View
             </Button>
             <br></br>
-          <UsersTable userList={userList}></UsersTable>
+          <TransactionsTable translist={translist}></TransactionsTable>
         </React.Fragment>
     );
 }

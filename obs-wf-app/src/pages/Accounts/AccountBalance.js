@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Title from './Title';
 import { Portal } from '@mui/base/Portal';
 import { Box } from '@mui/system';
+import { displayAccountBalance } from "../../services/DisplayAccountService";
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -25,13 +26,6 @@ import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import CssBaseline from '@mui/material/CssBaseline';
 import { red } from '@mui/material/colors';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { DateField, LocalizationProvider, StaticDatePicker } from '@mui/x-date-pickers';
-import {AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-// import {AdapterDateFns} from '@mui/lab/AdapterDateFns'
-import dayjs from 'dayjs';
-import en from 'dayjs/locale/en-in';
-import { displayAccountStatement } from '../../services/AccountStatementService';
-import AccountStatementTable from './AccountStatementTable';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -44,14 +38,13 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function AccountStatement() {
+export default function AccountBalance() {
   const [expanded, setExpanded] = React.useState(false);
   const [alert, setAlert] = useState(false);
   const [errors, setErrors] = useState(false);
   const [errorText, setErrorText] = useState("");
   const [anchorEl, setAnchorEl] = React.useState("");
-
-  var [accountStatement, setAccountStatement] = useState("");
+  var [accountBalance, setAccountBalance] = useState("");
   const container = React.useRef(null);
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -59,21 +52,21 @@ export default function AccountStatement() {
     const data = {
         "accountNumber":Number(formdata.get('accountNumber'))
     }
-    displayAccountStatement(Number(formdata.get('accountNumber')), formdata.get("startDate"), formdata.get("endDate"))
+    displayAccountBalance(formdata.get('accountNumber'))
       .then((response)=>{
-        console.log(response);
-        if(response.data.responseText==="sucessfully retrieved statement"){
-            setErrors(false);
+        if(response.data.responseText==="success"){
+          setErrors(false);
           setAlert(true);
-          setAccountStatement(response.data.obj);
-          console.log(accountStatement, response.data.responseText);
+          setAccountBalance(response.data.obj);
+          console.log(accountBalance);
         }
         else{
             setErrors(true);
             setErrorText(response.data.responseText);
         }
+        console.log(response);
         
-      })
+      }) 
       setAnchorEl(event.currentTarget);
   }
   const handleClose = () => {
@@ -90,14 +83,14 @@ export default function AccountStatement() {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            S
+            B
           </Avatar>
         }
         
       />
       <CardContent>
         <Typography variant="h3" color="text.primary">
-          Account Statement
+          Account Balance
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -127,27 +120,6 @@ export default function AccountStatement() {
                         name="accountNumber"
                         />
                   </Grid>
-                  <Grid item xs={12} sm={12}>
-                      <TextField InputLabelProps={{shrink:true}}
-                        required
-                        fullWidth
-                        type='date'
-                        id="startDate"
-                        label="Start Date"
-                        name="startDate"
-                      />
-                  </Grid>
-                  <br></br>
-                  <Grid item xs={12} sm={12}>
-                      <TextField InputLabelProps={{shrink:true}}
-                        required
-                        fullWidth
-                        type='date'
-                        id="endDate"
-                        label="End Date"
-                        name="endDate"
-                      />
-                  </Grid>
                 </Grid>
                 <Button
                   type="submit"
@@ -155,26 +127,23 @@ export default function AccountStatement() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  View Statement
+                  View Balance
                 </Button>
               </Box>
             </Box>
           </Container>
-          <Typography sx={{ p: 2 }}>{errors?(<p>{errorText}</p>):(
-                <Popover
-                id='simple-popover'
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorPosition={{left:'50%', top:'50%'}}
-                transformOrigin={{
-                  vertical: 'center',
-                  horizontal: 'center',
-                }}
-              >
-                <AccountStatementTable accountStatement={accountStatement} alert={alert}></AccountStatementTable>
-              </Popover>
-            )}</Typography>
+          <Typography color="text.secondary" sx={{ flex: 1 }}>
+                {!errors ? (
+                <Portal container={container.current}>
+                    <span>Balance : {accountBalance} Rupees only</span>
+                </Portal>
+                ) : (
+                    <Portal container={container.current}>
+                        <span>{errorText}</span>
+                    </Portal>
+                    )}
+            </Typography>
+            <Box sx={{ p: 1, my: 1 }} ref={container} />
         </CardContent>
       </Collapse>
     </Card>
