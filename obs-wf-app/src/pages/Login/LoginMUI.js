@@ -64,6 +64,7 @@ export default function SignInSide() {
                 sessionStorage.setItem("dateOfBirth", response.data.obj.dateOfBirth);
                 sessionStorage.setItem("password", response.data.obj.password);
                 sessionStorage.setItem("pin", response.data.obj.pin );
+                sessionStorage.setItem("activeStatus", response.data.obj.activeStatus );
                 if(response.data.responseText==="Login Successful"){
                     navigate("/customerdashboard", {
                         state: {

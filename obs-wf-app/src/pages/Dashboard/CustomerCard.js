@@ -45,7 +45,7 @@ export default function CustomerCard() {
           Customer ID - {sessionStorage.getItem("customerID")}
         </Typography>
         <Typography variant="h5" color="text.secondary">
-          {sessionStorage.getItem("activeStatus")?(<p>Inactive</p>):(<p>Active</p>)}
+          {sessionStorage.getItem("activeStatus")?(<p>Active</p>):(<p>Inactive</p>)}
         </Typography>
         <Typography variant="h6">
           Phone Number : {sessionStorage.getItem("phoneNumber")}

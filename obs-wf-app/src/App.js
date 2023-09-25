@@ -2,21 +2,16 @@ import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
 import { Home } from './components/Home';
-import { About } from './components/About';
-import { Contact } from './components/Contact';
 import { ErrorPage } from './components/ErrorPage';
 import { Login } from './pages/Login/Login';
 import { AdminLogin } from './pages/AdminLogin/AdminLogin';
 import { Register } from './pages/Register/Register';
 import { CustomerDashboard } from './pages/Dashboard/CustomerDashboard';
-import { DisplayAccounts } from './components/DisplayAccounts';
 import { CreateAccount } from './pages/CreateAccount/CreateAccount';
-import { DisplayAccountBalance } from './components/DisplayAccountBalance';
 import { Switch } from '@mui/material';
 import { Accounts } from './pages/Accounts/Accounts';
 import { Transactions } from './pages/Transactions/Transactions';
 import { AdminDashboard } from './pages/AdminDashboard/Dashboard/AdminDashboard';
-import { Users } from './pages/AdminDashboard/Users/Users';
 import { UpdateProfile } from './pages/UpdateProfile/UpdateProfile';
 function App() {
   return (
@@ -33,7 +28,6 @@ function App() {
           <Route exact path="/login" element={<Login/>} />
           <Route exact path="/adminlogin" element={<AdminLogin/>} />
           <Route exact path="/admindashboard" element={<AdminDashboard/>} />
-          <Route exact path="/admin/users" element={<Users/>} />
           
           <Route exact path="/logout" element={<Login/>} />
           <Route exact path="/register" element={<Register/>} />\

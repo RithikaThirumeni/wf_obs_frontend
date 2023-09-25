@@ -25,18 +25,6 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
-    <ListItemButton key={2} component={Link} to="/admin/users">
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Users" />
-    </ListItemButton>
-    <ListItemButton key={3} component={Link} to="/admin/useraccounts">
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="UserAccounts" />
-    </ListItemButton>
   </React.Fragment>
 );
 

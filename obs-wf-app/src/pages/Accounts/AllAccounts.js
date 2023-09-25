@@ -18,7 +18,7 @@ import AccountsTable from './AccountsTable';
 export function AllAccounts(){
     const [accountList, setAccountList] = useState("");
     function handleClick(event) {
-        displayAccounts()
+        displayAccounts(sessionStorage.getItem("customerID"))
         .then((response)=>{
             setAccountList(response.data.obj);
             console.log(accountList);

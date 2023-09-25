@@ -20,6 +20,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AdminCard from  './AdminCard';
 import AllUsers from './AllUsers';
+import CustomerAccounts from './CustomerAccounts';
 import { MyAdminDrawer } from '../../../components/AdminDrawer';
 
 function Copyright(props) {
@@ -59,7 +60,7 @@ export default function AdminDashboardMUI() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
+              <Grid item xs={12} md={12} lg={12}>
               
                     <AdminCard/>
                 
@@ -69,6 +70,11 @@ export default function AdminDashboardMUI() {
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                   <AllUsers />
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                  <CustomerAccounts />
                 </Paper>
               </Grid>
             </Grid>

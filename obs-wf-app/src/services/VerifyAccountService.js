@@ -1,13 +1,13 @@
 import axios from "axios";
 
-const backend_url = "http://localhost:8080/admin/verifyCustomer/";
+const backend_url = "http://localhost:8080/admin/verifyCustomerAccount/";
 
 const headers = {
     "Content-Type":"application/json"
 }
 
-export const verifyUser = (cid, status) => {
-    const data={"customerID":cid};
+export const verifyAccount = (ano) => {
+    const data={"accountNumber":ano};
     return axios
         .post(backend_url, data, headers)
         .then((res) => {

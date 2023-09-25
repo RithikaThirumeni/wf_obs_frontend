@@ -3,8 +3,7 @@ import axios from "axios";
 const headers = {
     "Content-Type":"application/json"
 }
-export function displayAccounts() {
-    var cid = sessionStorage.getItem("customerID");
+export function displayAccounts(cid) {
     var backend_url = "http://localhost:8080/customeraccounts/";
     
     return axios

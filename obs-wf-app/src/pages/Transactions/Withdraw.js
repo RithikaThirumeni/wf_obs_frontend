@@ -44,28 +44,35 @@ export function Withdraw() {
   const [errorContent, setErrorContent] = React.useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
-    const formdata = new FormData(event.currentTarget);
-    const data = {
-        "accountNumber":Number(formdata.get('accountNumber')),
-        "amount":Number(formdata.get('amount')),
+    if(sessionStorage.getItem("activeStatus")=="false"){
+      setAlert(false);
+      setErrorContent("Customer is Inactive, contact admin")
     }
-    console.log(data.amount);
-    withdraw(data)
-      .then((response) => {
-        console.log(response);
-        if(response.data.responseText==="Updated balance!"){
-          setAlert(true);
-          setAlertContent(response.data.responseText);
-        }
-        else{
-          setAlert(false);
-          setErrorContent(response.data.responseText+" "+response.data.errors);
-          
-        }
-      })
-      .catch( error => {
-          alert("Error = "+error);
-      });  
+    else{
+      const formdata = new FormData(event.currentTarget);
+      const data = {
+          "accountNumber":Number(formdata.get('accountNumber')),
+          "amount":Number(formdata.get('amount')),
+      }
+      console.log(data.amount);
+      withdraw(data)
+        .then((response) => {
+          console.log(response);
+          if(response.data.responseText==="Updated balance!"){
+            setAlert(true);
+            setAlertContent(response.data.responseText);
+          }
+          else{
+            setAlert(false);
+            setErrorContent(response.data.responseText+" "+response.data.errors);
+            
+          }
+        })
+        .catch( error => {
+            alert("Error = "+error);
+        });  
+    }
+    
   }
   const handleExpandClick = () => {
     setExpanded(!expanded);
