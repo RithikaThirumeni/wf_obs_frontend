@@ -22,6 +22,7 @@ import AdminCard from  './AdminCard';
 import AllUsers from './AllUsers';
 import CustomerAccounts from './CustomerAccounts';
 import { MyAdminDrawer } from '../../../components/AdminDrawer';
+import AllTransactions from './AllTransactions';
 
 function Copyright(props) {
   return (
@@ -75,6 +76,11 @@ export default function AdminDashboardMUI() {
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                   <CustomerAccounts />
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                  <AllTransactions />
                 </Paper>
               </Grid>
             </Grid>

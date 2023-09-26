@@ -16,14 +16,22 @@ import AccountsVerifyTable from './AccountsVerifyTable';
 export default function CustomerAccounts(){
     const [accountList, setAccountList] = useState("");
     const [customerID, setCustomerID] = useState("");
+    const [errors, setErrors] = useState("");
     function handleChangeCID(event) {
         setCustomerID(event.target.value);
     }
     function handleClick(event, cid) {
         displayAccounts(cid)
+        
         .then((response)=>{
+            console.log(response);
             setAccountList(response.data.obj);
             console.log(accountList);
+            setErrors(false);
+        })
+        .catch((err)=>{
+            setErrors(true);
+            setAccountList(err.responseText);
         })
     }
     return (
@@ -50,7 +58,7 @@ export default function CustomerAccounts(){
               View All Accounts
             </Button>
             <br></br>
-          <AccountsVerifyTable accountList={accountList}></AccountsVerifyTable>
+          {!errors?(<AccountsVerifyTable accountList={accountList}></AccountsVerifyTable>):(<span>{accountList}</span>)}
         </React.Fragment>
     );
 }

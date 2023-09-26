@@ -3,8 +3,8 @@ import axios from "axios";
 const headers = {
     "Content-Type":"application/json"
 }
-export function transactionSummary() {
-    var cid = sessionStorage.getItem("customerID");
+export function transactionSummary(cid) {
+    
     var backend_url = "http://localhost:8080/transactionsummary/";
     
     return axios

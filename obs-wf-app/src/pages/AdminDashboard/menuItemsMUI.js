@@ -37,7 +37,7 @@ export const secondaryListItems = (
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Create Account For User" />
+      <ListItemText primary="Create Account" />
     </ListItemButton>
     <ListItemButton key={6} component={Link} to="/logout">
       <ListItemIcon>

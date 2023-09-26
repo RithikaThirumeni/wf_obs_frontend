@@ -55,37 +55,30 @@ export default function FundTransfer() {
     }
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(sessionStorage.getItem("activeStatus")=="false"){
-      setAlert(false);
-      setErrorContent("Customer is Inactive, contact admin")
-    }
-    else{
-      const formdata = new FormData(event.currentTarget);
+    const formdata = new FormData(event.currentTarget);
     
-      const data = {
-          "sourceAccountNumber":Number(sourceAccountNumber),
-          "receiverAccountNumber":Number(receiverAccountNumber),
-          "amount":parseFloat(formdata.get("amount")),
-      }
-      console.log(formdata.get("amount"));
-      fundtransfer(data)
-        .then((response) => {
-          console.log(response);
-          if(response.data.responseText==="Updated balance!"){
-            setAlert(true);
-            setAlertContent(response.data.responseText);
-          }
-          else{
-            setAlert(false);
-            setErrorContent(response.data.responseText+" "+response.data.errors);
-            
-          }
-        })
-        .catch( error => {
-            alert("Error = "+error);
-        }); 
+    const data = {
+        "sourceAccountNumber":Number(sourceAccountNumber),
+        "receiverAccountNumber":Number(receiverAccountNumber),
+        "amount":Number(formdata.get("amount")),
     }
-     
+    console.log(formdata.get("amount"));
+    fundtransfer(data)
+      .then((response) => {
+        console.log(response);
+        if(response.data.responseText==="Updated balance!"){
+          setAlert(true);
+          setAlertContent(response.data.responseText);
+        }
+        else{
+          setAlert(false);
+          setErrorContent(response.data.responseText+" "+response.data.errors);
+          
+        }
+      })
+      .catch( error => {
+          alert("Error = "+error);
+      });  
   }
   const handleExpandClick = () => {
     setExpanded(!expanded);

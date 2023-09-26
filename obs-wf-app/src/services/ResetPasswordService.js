@@ -10,7 +10,7 @@ export const resetPassword = async (data) => {
     console.log("resetting password...");
     console.log(data);
     return await axios
-        .post(backend_url, data, {headers})
+        .put(backend_url, data, {headers})
         .then((res) => {
             return res;
         })
