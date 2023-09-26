@@ -33,11 +33,11 @@ export const secondaryListItems = (
     <ListSubheader component="div" inset>
       Admin Actions
     </ListSubheader>
-    <ListItemButton key={4} component={Link} to="/admin/createaccount">
+    <ListItemButton key={4} component={Link} to="/admincreateaccount">
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Create Account" />
+      <ListItemText primary="Create Account For User" />
     </ListItemButton>
     <ListItemButton key={6} component={Link} to="/logout">
       <ListItemIcon>

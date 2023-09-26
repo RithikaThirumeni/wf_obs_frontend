@@ -13,6 +13,7 @@ import { Accounts } from './pages/Accounts/Accounts';
 import { Transactions } from './pages/Transactions/Transactions';
 import { AdminDashboard } from './pages/AdminDashboard/Dashboard/AdminDashboard';
 import { UpdateProfile } from './pages/UpdateProfile/UpdateProfile';
+import { AdminCreateAccount } from './pages/AdminDashboard/CreateAccount/AdminCreateAccount';
 function App() {
   return (
     <div className="App">
@@ -28,6 +29,7 @@ function App() {
           <Route exact path="/login" element={<Login/>} />
           <Route exact path="/adminlogin" element={<AdminLogin/>} />
           <Route exact path="/admindashboard" element={<AdminDashboard/>} />
+          <Route exact path="/admincreateaccount" element={<AdminCreateAccount/>}/>
           
           <Route exact path="/logout" element={<Login/>} />
           <Route exact path="/register" element={<Register/>} />\

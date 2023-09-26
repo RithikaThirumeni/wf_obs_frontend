@@ -20,7 +20,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Alert, Hidden, InputAdornment, InputLabel, MenuItem } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom"
-import { createAccount } from "../../services/CreateAccountService";
+import { createAccountForUser } from "../../../services/CreateAdminAccountService";
 import { AccountCircleOutlined } from '@mui/icons-material';
 
 function Copyright(props) {
@@ -60,41 +60,29 @@ export default function AccountSignUp() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const formdata = new FormData(event.currentTarget);
-    
         const data = {
             "accountType":selectedValue,
             "accountBalance":formdata.get('accountBalance'),
             "openDate":formdata.get('openDate'),
             "creditCardReq":creditCardReq,
             "debitCardReq":debitCardReq,
-            "customerID": 
-            {                
-                "customerID":Number(sessionStorage.getItem("customerID")),
-                "firstName":sessionStorage.getItem("firstName"),
-                "lastName":sessionStorage.getItem("lastName"),
-                "phoneNumber":Number(sessionStorage.getItem("phoneNumber")),
-                "emailID":sessionStorage.getItem("emailID"),
-                "residentAddress":sessionStorage.getItem("residentAddress"),
-                "dateOfBirth":sessionStorage.getItem("dateOfBirth"),
-                "password":sessionStorage.getItem("password"),
-                "pin":Number(sessionStorage.getItem("pin"))
-            }
+            "customerID": formdata.get('customerID')
         }
         console.log(data);
-        createAccount(data)
+        createAccountForUser(data)
             .then((response) => {
-                if(response.data.responseText==="Account Created"){
+                if(response.data.responseText==="created new account"){
                     setAlertContent(response.data.responseText);
                     setAlert(true);
                 }
                 else{
                     setAlertContent(response.data.responseText+" "+response.data.errors);
                     setAlert(true);
-                }
-                
+                }    
             })
             .catch( error => {
-                alert("Error = "+error);
+                setAlertContent("Error = "+error);
+                setAlert(true);
             });
     };
 
@@ -118,6 +106,16 @@ export default function AccountSignUp() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <TextField 
+                    required
+                    fullWidth
+                    id="customerID"
+                    label="Customer ID"
+                    name="customerID"
+                    helperText="8 digit customer ID"
+                    />
+                </Grid>
               <Grid item xs={12} >
                 <InputLabel id="select-label">Account Type</InputLabel>
                 <Select sx={{flex:1}}
@@ -148,9 +146,16 @@ export default function AccountSignUp() {
               </Grid>
               
               <Grid item xs={12}>
-                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={en}>
-                    <DateField required fullWidth id="openDate" name="openDate" label="Account Open Date" format="YYYY-MM-DD"/>
-                </LocalizationProvider>
+                    <Grid item xs={12} sm={12}>
+                      <TextField InputLabelProps={{shrink:true}}
+                        required
+                        fullWidth
+                        type='date'
+                        id="openDate"
+                        label="Open Date"
+                        name="openDate"
+                      />
+                    </Grid>
               </Grid>
               <Grid item xs={12}>
               <FormControlLabel control={<Checkbox id='creditCardReq' value={creditCardReq} onClick={creditCardChangeHandler}/>} label="Credit Card Required"></FormControlLabel>
@@ -164,12 +169,12 @@ export default function AccountSignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Create Account
+              Create Account for User
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <MaterialLink component={Link} to="/customerdashboard" variant="body2">
-                  Go to Dashboard
+                <MaterialLink component={Link} to="/admindashboard" variant="body2">
+                  Go back to Admin Dashboard
                 </MaterialLink>
               </Grid>
             </Grid>
