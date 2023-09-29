@@ -148,9 +148,15 @@ export default function AccountSignUp() {
               </Grid>
               
               <Grid item xs={12}>
-                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={en}>
-                    <DateField required fullWidth id="openDate" name="openDate" label="Account Open Date" format="YYYY-MM-DD"/>
-                </LocalizationProvider>
+                <TextField InputLabelProps={{shrink:true}}
+                  required
+                  fullWidth
+                  type='date'
+                  id="openDate"
+                  label="Open Date"
+                  name="openDate"
+                  autoComplete="openDate"
+                />
               </Grid>
               <Grid item xs={12}>
               <FormControlLabel control={<Checkbox id='creditCardReq' value={creditCardReq} onClick={creditCardChangeHandler}/>} label="Credit Card Required"></FormControlLabel>

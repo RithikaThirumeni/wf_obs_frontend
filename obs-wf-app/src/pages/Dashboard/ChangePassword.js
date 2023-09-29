@@ -58,7 +58,7 @@ export default function ChangePassword({alert}) {
         <React.Fragment>
             {alert?(
         // <Card sx={{ maxWidth: 345 }}>
-        <Card fullWidth>
+        <Card>
         
         <CardContent>
             <Typography variant="h4" color="text.primary">
@@ -68,7 +68,7 @@ export default function ChangePassword({alert}) {
             <CardContent>
             <Container component="main" maxWidth="xs">
                 <Box>
-                    <Grid container spacing={2}>
+                    
                     <Grid item xs={12} sm={12}>
                         <TextField 
                             required
@@ -119,7 +119,7 @@ export default function ChangePassword({alert}) {
                         </Grid>
                         </Box>
                     ):null}
-                    </Grid>
+                    
                     <Typography variant="body" color="text.primary">
                         {alertText}
                     </Typography>

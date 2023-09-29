@@ -63,9 +63,17 @@ export default function AccountStatement() {
       .then((response)=>{
         console.log(response);
         if(response.data.responseText==="sucessfully retrieved statement"){
-            setErrors(false);
-          setAlert(true);
+           
           setAccountStatement(response.data.obj);
+          if(accountStatement.length===0){
+            setAlert(false);
+            setErrors(true);
+            setErrorText("No Transactions available");
+          }
+          else{
+            setErrors(false);
+            setAlert(true);
+          }
           console.log(accountStatement, response.data.responseText);
         }
         else{

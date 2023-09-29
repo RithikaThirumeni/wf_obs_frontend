@@ -18,6 +18,7 @@ import TextField from '@mui/material/TextField';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
+import { useNavigate, Link} from "react-router-dom"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -44,6 +45,7 @@ export default function FundTransfer() {
   const [amount, setAmount] = useState("");
   const [sourceAccountNumber, setSourceAccountNumber] = useState("");
   const [receiverAccountNumber, setReceiverAccountNumber] = useState("");
+  const navigate = useNavigate();
     const amountChangeHandler = (Event) => {
         setAmount(Event.target.value);
     }
@@ -77,7 +79,8 @@ export default function FundTransfer() {
         }
       })
       .catch( error => {
-          alert("Error = "+error);
+        navigate("/ErrorPage");
+        navigate(0);
       });  
   }
   const handleExpandClick = () => {

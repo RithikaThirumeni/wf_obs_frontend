@@ -19,9 +19,9 @@ export function displayAccounts(cid) {
 export function displayAccountBalance(accountNumber) {
     
     var backend_url = "http://localhost:8080/displaybalance/";
-    
+    var cid = sessionStorage.getItem("customerID");
     return axios
-        .get(backend_url+accountNumber)
+        .get(backend_url+accountNumber+"/"+cid)
         .then((res) => {
             console.log(res)
             return res;

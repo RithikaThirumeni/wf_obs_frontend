@@ -16,7 +16,8 @@ import AccountsVerifyTable from './AccountsVerifyTable';
 export default function CustomerAccounts(){
     const [accountList, setAccountList] = useState("");
     const [customerID, setCustomerID] = useState("");
-    const [errors, setErrors] = useState("");
+    const [errors, setErrors] = useState(false);
+    const [errorText, setErrorText] = useState("");
     function handleChangeCID(event) {
         setCustomerID(event.target.value);
     }
@@ -26,12 +27,22 @@ export default function CustomerAccounts(){
         .then((response)=>{
             console.log(response);
             setAccountList(response.data.obj);
-            console.log(accountList);
-            setErrors(false);
+            if(response.data.responseText!="accounts list by cid"){
+                setErrors(true);
+                setErrorText(response.data.responseText);
+            }
+            else if(accountList.length===0){
+                setErrors(true);
+                setErrorText("Nothing to Display");
+            }
+            else{
+                setErrors(false);
+            }
+            
         })
         .catch((err)=>{
             setErrors(true);
-            setAccountList(err.responseText);
+            setErrorText(err.responseText);
         })
     }
     return (
@@ -58,7 +69,7 @@ export default function CustomerAccounts(){
               View All Accounts
             </Button>
             <br></br>
-          {!errors?(<AccountsVerifyTable accountList={accountList}></AccountsVerifyTable>):(<span>{accountList}</span>)}
+          {!errors?(<AccountsVerifyTable accountList={accountList}></AccountsVerifyTable>):(<span>{errorText}</span>)}
         </React.Fragment>
     );
 }

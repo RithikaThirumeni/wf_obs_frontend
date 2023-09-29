@@ -4,8 +4,8 @@ const headers = {
     "Content-Type":"application/json"
 }
 export function displayAccountStatement(accno, sdate, edate) {
-    
-    var backend_url = "http://localhost:8080/accountstatement/"+accno+"/"+sdate+"/"+edate;
+    var cid = sessionStorage.getItem("customerID");
+    var backend_url = "http://localhost:8080/accountstatement/"+accno+"/"+sdate+"/"+edate+"/"+cid;
     console.log(sdate, edate);
     console.log(backend_url);
     return axios

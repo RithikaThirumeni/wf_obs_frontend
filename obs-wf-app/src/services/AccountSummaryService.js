@@ -6,9 +6,9 @@ const headers = {
 export function displayAccountSummary(sourceAccountNumber) {
     
     var backend_url = "http://localhost:8080/accountsummary/";
-    
+    var cid = sessionStorage.getItem("customerID");
     return axios
-        .get(backend_url+sourceAccountNumber)
+        .get(backend_url+sourceAccountNumber+"/"+cid)
         .then((res) => {
             console.log(res)
             return res;

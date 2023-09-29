@@ -62,11 +62,11 @@ export default function AccountSignUp() {
         const formdata = new FormData(event.currentTarget);
         const data = {
             "accountType":selectedValue,
-            "accountBalance":formdata.get('accountBalance'),
+            "accountBalance":Number(formdata.get('accountBalance')),
             "openDate":formdata.get('openDate'),
             "creditCardReq":creditCardReq,
             "debitCardReq":debitCardReq,
-            "customerID": formdata.get('customerID')
+            "customerID": Number(formdata.get('customerID'))
         }
         console.log(data);
         createAccountForUser(data)
@@ -113,7 +113,7 @@ export default function AccountSignUp() {
                     id="customerID"
                     label="Customer ID"
                     name="customerID"
-                    helperText="8 digit customer ID"
+                    helperText="4 digit customer ID"
                     />
                 </Grid>
               <Grid item xs={12} >

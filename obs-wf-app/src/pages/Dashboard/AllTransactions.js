@@ -17,26 +17,47 @@ import TransactionsTable from './TransactionsTable';
 
 export default function AllTransactions(){
     const [translist, setTranslist] = useState("");
+    const [alert, setAlert] = useState("");
     function handleClick(event) {
+        setAlert(true);
         transactionSummary(sessionStorage.getItem("customerID"))
         .then((response)=>{
             setTranslist(response.data.obj);
             console.log(translist);
         })
     }
+    function handleCancel(event){
+        setAlert(false);
+    }
     return (
         <React.Fragment>
-            <Title>Recent Transactions made by {sessionStorage.getItem("firstName")}</Title>
+            <Typography variant="h4" color="text.primary" gutterBottom>
+                Transactions made by {sessionStorage.getItem("firstName")}
+            </Typography>
+            <Grid container spacing={3} sx={{flex:1, overflow:'auto'}}>
+                <Grid item xs={12} lg={6} >
             <Button 
-                sx={{ mt: 3, mb: 2 }}
                 type="submit"
                 variant="contained"
                 onClick={handleClick}
               >
               Click to View
             </Button>
+            </Grid>
+            <Grid item xs={12} lg={6}>
+            <Button 
+                type="submit"
+                variant="secondary"
+                onClick={handleCancel}
+              >
+                Cancel View
+            </Button>
+            </Grid>
             <br></br>
-          <TransactionsTable translist={translist}></TransactionsTable>
+            <Grid item xs={12}>
+          {alert?(<TransactionsTable translist={translist}></TransactionsTable>):null}
+          </Grid>
+          </Grid>
         </React.Fragment>
     );
 }

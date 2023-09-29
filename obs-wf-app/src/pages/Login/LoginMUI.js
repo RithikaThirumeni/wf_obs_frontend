@@ -54,18 +54,17 @@ export default function SignInSide() {
         }
         customerLogin(data)
             .then((response) => {
-              
-                sessionStorage.setItem("customerID", response.data.obj.customerID);
-                sessionStorage.setItem("emailID", response.data.obj.emailID);
-                sessionStorage.setItem("firstName", response.data.obj.firstName);
-                sessionStorage.setItem("lastName", response.data.obj.lastName);
-                sessionStorage.setItem("phoneNumber", response.data.obj.phoneNumber);
-                sessionStorage.setItem("residentAddress", response.data.obj.residentAddress);
-                sessionStorage.setItem("dateOfBirth", response.data.obj.dateOfBirth);
-                sessionStorage.setItem("password", response.data.obj.password);
-                sessionStorage.setItem("pin", response.data.obj.pin );
-                sessionStorage.setItem("activeStatus", response.data.obj.activeStatus );
                 if(response.data.responseText==="Login Successful"){
+                  sessionStorage.setItem("customerID", response.data.obj.customerID);
+                  sessionStorage.setItem("emailID", response.data.obj.emailID);
+                  sessionStorage.setItem("firstName", response.data.obj.firstName);
+                  sessionStorage.setItem("lastName", response.data.obj.lastName);
+                  sessionStorage.setItem("phoneNumber", response.data.obj.phoneNumber);
+                  sessionStorage.setItem("residentAddress", response.data.obj.residentAddress);
+                  sessionStorage.setItem("dateOfBirth", response.data.obj.dateOfBirth);
+                  sessionStorage.setItem("password", response.data.obj.password);
+                  sessionStorage.setItem("pin", response.data.obj.pin );
+                  sessionStorage.setItem("activeStatus", response.data.obj.activeStatus );
                     navigate("/customerdashboard", {
                         state: {
                         customerID: response.data.obj.customerID, 
@@ -81,7 +80,7 @@ export default function SignInSide() {
                     navigate(0);
                 }
                 else {
-                  setAlertContent(response.data.responseText+response.data.errors);
+                  setAlertContent(response.data.responseText+" "+response.data.errors);
                   setAlert(true);
                 }
             })

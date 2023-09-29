@@ -50,10 +50,10 @@ export default function SignInSide() {
         }
         adminLogin(data)
             .then((response) => {
-                sessionStorage.setItem("adminID", response.data.obj.adminID);
-                sessionStorage.setItem("emailID", response.data.obj.emailID);
-                sessionStorage.setItem("password", response.data.obj.password);
                 if(response.data.responseText==="Login Successful"){
+                    sessionStorage.setItem("adminID", response.data.obj.adminID);
+                    sessionStorage.setItem("emailID", response.data.obj.emailID);
+                    sessionStorage.setItem("password", response.data.obj.password);
                     navigate("/admindashboard", {
                         state: {
                         adminID: response.data.obj.adminID, 
@@ -63,7 +63,7 @@ export default function SignInSide() {
                     navigate(0);
                 }
                 else {
-                  setAlertContent(response.data.responseText+response.data.errors);
+                  setAlertContent(response.data.responseText+" "+response.data.errors);
                   setAlert(true);
                 }
             })

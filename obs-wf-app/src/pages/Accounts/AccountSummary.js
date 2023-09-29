@@ -55,9 +55,17 @@ export default function AccountSummary() {
     displayAccountSummary(formdata.get('accountNumber'))
       .then((response)=>{
         if(response.data.responseText==="sucessfully retrieved summary"){
-          setErrors(false);
-          setAlert(true);
+          
           setAccountSummary(response.data.obj);
+          if(accountSummary.length===0){
+            setAlert(false);
+            setErrors(true);
+            setErrorText("No Transactions available");
+          }
+          else{
+            setErrors(false);
+            setAlert(true);
+          }
           console.log(accountSummary);
         }
         else{

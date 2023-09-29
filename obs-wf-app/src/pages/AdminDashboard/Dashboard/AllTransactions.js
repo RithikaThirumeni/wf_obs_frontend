@@ -17,6 +17,9 @@ import TransactionsTable from '../../Dashboard/TransactionsTable';
 export default function AllTransactions(){
     const [translist, setTranslist] = useState("");
     const [customerID, setCustomerID] = useState("");
+    const [error, setError] = React.useState(false);
+    const [errorContent, setErrorContent] = useState("");
+    const [errorText, setErrorText] = useState("");
     function handleChangeCID(event) {
         setCustomerID(event.target.value);
     }
@@ -24,7 +27,23 @@ export default function AllTransactions(){
         transactionSummary(customerID)
         .then((response)=>{
             setTranslist(response.data.obj);
+            if(response.data.responseText!="sucessfully retrieved transaction summary"){
+                setError(true);
+                setErrorContent(response.data.responseText);
+            }
+            else if(translist.length===0){
+                setError(true);
+                setErrorContent("Nothing to display");
+            }
+            else{
+                setError(false);
+            }
+            
             console.log(translist);
+        })
+        .catch((err)=>{
+            setError(true);
+            setErrorContent("Server error, Enter a valid customer ID");
         })
     }
     return (
@@ -54,7 +73,8 @@ export default function AllTransactions(){
               Click to View
             </Button>
             <br></br>
-          <TransactionsTable translist={translist}></TransactionsTable>
+            {error?errorContent:(<TransactionsTable translist={translist}></TransactionsTable>)}
+          
         </React.Fragment>
     );
 }

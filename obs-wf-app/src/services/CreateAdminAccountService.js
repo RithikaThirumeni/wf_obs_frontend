@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const backend_url = "http://localhost:8080/createaccountforuser/";
+const backend_url = "http://localhost:8080/admin/createaccountforuser/";
 
 const config = {
     headers:{
