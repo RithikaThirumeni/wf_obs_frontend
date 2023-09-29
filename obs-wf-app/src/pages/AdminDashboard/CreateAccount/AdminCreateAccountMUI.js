@@ -65,11 +65,10 @@ export default function AccountSignUp() {
             "accountBalance":Number(formdata.get('accountBalance')),
             "openDate":formdata.get('openDate'),
             "creditCardReq":creditCardReq,
-            "debitCardReq":debitCardReq,
-            "customerID": Number(formdata.get('customerID'))
+            "debitCardReq":debitCardReq
         }
         console.log(data);
-        createAccountForUser(data)
+        createAccountForUser(data, Number(formdata.get('customerID')))
             .then((response) => {
                 if(response.data.responseText==="created new account"){
                     setAlertContent(response.data.responseText);

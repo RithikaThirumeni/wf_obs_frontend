@@ -10,10 +10,10 @@ const config = {
     }
 }
 
-export const createAccountForUser = (data) => {
+export const createAccountForUser = (data, cid) => {
     console.log("creating account by admin...");
     return axios
-        .post(backend_url, data, config)
+        .post(backend_url+cid, data, config)
         .then((res) => {
             return res;
         })
