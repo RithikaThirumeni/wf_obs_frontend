@@ -1,36 +1,47 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import MaterialLink from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { DateField, LocalizationProvider, StaticDatePicker } from '@mui/x-date-pickers';
-import {AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import dayjs from 'dayjs';
-import en from 'dayjs/locale/en-in';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Alert, Hidden } from '@mui/material';
-import { useState } from 'react';
-import { useNavigate, Link } from "react-router-dom"
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import MaterialLink from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import {
+  DateField,
+  LocalizationProvider,
+  StaticDatePicker,
+} from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
+import en from "dayjs/locale/en-in";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Alert, Hidden } from "@mui/material";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { customerRegister } from "../../services/RegisterService";
-import { AccountCircleOutlined } from '@mui/icons-material';
+import { AccountCircleOutlined } from "@mui/icons-material";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
       <MaterialLink component={Link} color="inherit" to="/home">
         Visit Home Page
-      </MaterialLink>{' '}
+      </MaterialLink>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -40,62 +51,70 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-
-    const navigate = useNavigate();
-    const [alert, setAlert] = useState(false);
-    const [alertContent, setAlertContent] = useState("");
+  const navigate = useNavigate();
+  const [alert, setAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const formdata = new FormData(event.currentTarget);
-    
+
     const data = {
-        "firstName":formdata.get('firstName'),
-        "lastName":formdata.get('lastName'),
-        "phoneNumber":formdata.get('phoneNumber'),
-        "emailID":formdata.get('emailID'),
-        "residentAddress":formdata.get('residentAddress'),
-        "dateOfBirth":formdata.get('dateOfBirth'),
-        "password":formdata.get('password'),
-        "pin":formdata.get('pin')
-    }
+      firstName: formdata.get("firstName"),
+      lastName: formdata.get("lastName"),
+      phoneNumber: formdata.get("phoneNumber"),
+      emailID: formdata.get("emailID"),
+      residentAddress: formdata.get("residentAddress"),
+      dateOfBirth: formdata.get("dateOfBirth"),
+      password: formdata.get("password"),
+      pin: formdata.get("pin"),
+    };
     customerRegister(data)
-        .then((response) => {
-            if(response.data.responseText==="Save Successful!"){
-                setAlertContent(response.data.responseText);
-                setAlert(true);
-            }
-            else{
-                setAlertContent(response.data.responseText+" "+response.data.errors);
-                setAlert(true);
-            }
-            
-        })
-        .catch( error => {
-          setAlertContent(error);
+      .then((response) => {
+        if (response.data.responseText === "Save Successful!") {
+          setAlertContent(response.data.responseText);
           setAlert(true);
-        });
+          toast.success(response.data.responseText, { autoClose: 5000 });
+        } else {
+          setAlertContent(response.data.responseText);
+          setAlert(true);
+          toast.error(response.data.responseText + " " + response.data.errors, {
+            autoClose: 5000,
+          });
+        }
+      })
+      .catch((error) => {
+        setAlertContent(error);
+        setAlert(true);
+        toast.error(error, { autoClose: 5000 });
+      });
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        <ToastContainer />
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <AccountCircleOutlined/>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <AccountCircleOutlined />
           </Avatar>
           <Typography component="h1" variant="h5">
             Register Customer
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -140,7 +159,8 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField inputProps={{inputMode:'numeric', pattern:'[0-9]*'}}
+                <TextField
+                  inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   required
                   fullWidth
                   id="phoneNumber"
@@ -159,7 +179,8 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField inputProps={{inputMode:'numeric', pattern:'[0-9]*'}}
+                <TextField
+                  inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   required
                   fullWidth
                   id="pin"
@@ -170,10 +191,11 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField InputLabelProps={{shrink:true}}
+                <TextField
+                  InputLabelProps={{ shrink: true }}
                   required
                   fullWidth
-                  type='date'
+                  type="date"
                   id="dateOfBirth"
                   label="Date of Birth"
                   name="dateOfBirth"
@@ -181,7 +203,7 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
-            { alert ? <Alert severity='info'>{alertContent}</Alert>:<></> }
+            {alert ? <Alert severity="info">{alertContent}</Alert> : <></>}
             <Button
               type="submit"
               fullWidth

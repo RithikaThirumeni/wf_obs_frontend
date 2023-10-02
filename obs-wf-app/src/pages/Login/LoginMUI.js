@@ -1,32 +1,39 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import MaterialLink from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import MaterialLink from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useState } from "react";
-import { useNavigate, Link} from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom";
 import { customerLogin } from "../../services/LoginService";
-import { Alert, Hidden } from '@mui/material';
+import { Alert, Hidden } from "@mui/material";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
       <MaterialLink component={Link} color="inherit" to="/home">
         Visit Home
-      </MaterialLink>{' '}
+      </MaterialLink>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -36,72 +43,81 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
-    const navigate = useNavigate();
-    const [alert, setAlert] = useState(false);
-    const [alertContent, setAlertContent] = useState("");
-    
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        
-        const formdata = new FormData(event.currentTarget);
-        console.log({
-        email: formdata.get('email'),
-        password: formdata.get('password'),
-        });
-        const data = {
-            "emailID":formdata.get('email'),
-            "password":formdata.get('password')
-        }
-        customerLogin(data)
-            .then((response) => {
-                if(response.data.responseText==="Login Successful"){
-                  sessionStorage.setItem("customerID", response.data.obj.customerID);
-                  sessionStorage.setItem("emailID", response.data.obj.emailID);
-                  sessionStorage.setItem("firstName", response.data.obj.firstName);
-                  sessionStorage.setItem("lastName", response.data.obj.lastName);
-                  sessionStorage.setItem("phoneNumber", response.data.obj.phoneNumber);
-                  sessionStorage.setItem("residentAddress", response.data.obj.residentAddress);
-                  sessionStorage.setItem("dateOfBirth", response.data.obj.dateOfBirth);
-                  sessionStorage.setItem("password", response.data.obj.password);
-                  sessionStorage.setItem("pin", response.data.obj.pin );
-                  sessionStorage.setItem("activeStatus", response.data.obj.activeStatus );
-                    navigate("/customerdashboard", {
-                        state: {
-                        customerID: response.data.obj.customerID, 
-                        emailID: response.data.obj.emailID,
-                        firstName: response.data.obj.firstName,
-                        lastName: response.data.obj.lastName,
-                        phoneNumber: response.data.obj.phoneNumber,
-                        residentAddress: response.data.obj.residentAddress,
-                        dateOfBirth: response.data.obj.dateOfBirth,
-                        password: response.data.obj.password,
-                        pin: response.data.obj.pin 
-                    }});
-                    navigate(0);
-                }
-                else {
-                  setAlertContent(response.data.responseText+" "+response.data.errors);
-                  setAlert(true);
-                }
-            })
+  const navigate = useNavigate();
+  const [alert, setAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const formdata = new FormData(event.currentTarget);
+    console.log({
+      email: formdata.get("email"),
+      password: formdata.get("password"),
+    });
+    const data = {
+      emailID: formdata.get("email"),
+      password: formdata.get("password"),
+    };
+    customerLogin(data).then((response) => {
+      if (response.data.responseText === "Login Successful") {
+        sessionStorage.setItem("customerID", response.data.obj.customerID);
+        sessionStorage.setItem("emailID", response.data.obj.emailID);
+        sessionStorage.setItem("firstName", response.data.obj.firstName);
+        sessionStorage.setItem("lastName", response.data.obj.lastName);
+        sessionStorage.setItem("phoneNumber", response.data.obj.phoneNumber);
+        sessionStorage.setItem(
+          "residentAddress",
+          response.data.obj.residentAddress
+        );
+        sessionStorage.setItem("dateOfBirth", response.data.obj.dateOfBirth);
+        sessionStorage.setItem("password", response.data.obj.password);
+        sessionStorage.setItem("pin", response.data.obj.pin);
+        sessionStorage.setItem("activeStatus", response.data.obj.activeStatus);
+        toast.success("Login Successful", { autoClose: 5000 });
+        setTimeout(() => {
+          navigate("/customerdashboard", {
+            state: {
+              customerID: response.data.obj.customerID,
+              emailID: response.data.obj.emailID,
+              firstName: response.data.obj.firstName,
+              lastName: response.data.obj.lastName,
+              phoneNumber: response.data.obj.phoneNumber,
+              residentAddress: response.data.obj.residentAddress,
+              dateOfBirth: response.data.obj.dateOfBirth,
+              password: response.data.obj.password,
+              pin: response.data.obj.pin,
+            },
+          });
+        }, 6000);
+      } else {
+        setAlertContent(response.data.responseText);
+        setAlert(true);
+        toast.error(response.data.responseText);
+      }
+    });
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
+        <ToastContainer />
         <Grid
           item
           xs={false}
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
-            backgroundRepeat: 'no-repeat',
+            backgroundImage:
+              "url(https://source.unsplash.com/random?wallpapers)",
+            backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
-              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+              t.palette.mode === "light"
+                ? t.palette.grey[50]
+                : t.palette.grey[900],
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -109,18 +125,23 @@ export default function SignInSide() {
             sx={{
               my: 8,
               mx: 4,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 1 }}
+            >
               <TextField
                 margin="normal"
                 required
@@ -141,7 +162,7 @@ export default function SignInSide() {
                 id="password"
                 autoComplete="current-password"
               />
-              { alert ? <Alert severity='error'>{alertContent}</Alert>:<></> }
+              {alert ? <Alert severity="error">{alertContent}</Alert> : <></>}
               <Button
                 type="submit"
                 fullWidth
@@ -156,13 +177,17 @@ export default function SignInSide() {
                     Forgot password?
                   </MaterialLink>
                 </Grid>
-                <Grid item sx={{flex:1}}>
+                <Grid item sx={{ flex: 1 }}>
                   <MaterialLink component={Link} to="/register" variant="body2">
                     {"Register Now"}
                   </MaterialLink>
                 </Grid>
                 <Grid item>
-                  <MaterialLink component={Link} to="/adminlogin" variant="body2">
+                  <MaterialLink
+                    component={Link}
+                    to="/adminlogin"
+                    variant="body2"
+                  >
                     {"Login as Admin"}
                   </MaterialLink>
                 </Grid>
