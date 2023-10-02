@@ -1,14 +1,15 @@
 import axios from "axios";
 
-const backend_url = "http://localhost:8080/savecustomer";
+const backend_url = "http://localhost:8080/admin/verifyCustomer/";
 
 const headers = {
     "Content-Type":"application/json"
 }
 
-export const customerRegister = (data) => {
+export const verifyUser = (cid, status) => {
+    const data={"customerID":cid};
     return axios
-        .post(backend_url, data, {headers})
+        .post(backend_url, data, headers)
         .then((res) => {
             return res;
         })

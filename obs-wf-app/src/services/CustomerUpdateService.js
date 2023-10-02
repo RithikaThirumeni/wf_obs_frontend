@@ -1,14 +1,15 @@
 import axios from "axios";
 
-const backend_url = "http://localhost:8080/savecustomer";
+const backend_url = "http://localhost:8080/updateCustomer/";
 
 const headers = {
     "Content-Type":"application/json"
 }
 
-export const customerRegister = (data) => {
+export const updateCustomer = (data) => {
+    const cid=sessionStorage.getItem("customerID");
     return axios
-        .post(backend_url, data, {headers})
+        .put(backend_url+cid, data, {headers})
         .then((res) => {
             return res;
         })

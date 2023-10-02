@@ -1,15 +1,15 @@
 import axios from "axios";
 
-const backend_url = "http://localhost:8080/savecustomer";
-
 const headers = {
     "Content-Type":"application/json"
 }
-
-export const customerRegister = (data) => {
+export function displayCustomers() {
+    var backend_url = "http://localhost:8080/getAllCustomers";
+    
     return axios
-        .post(backend_url, data, {headers})
+        .get(backend_url)
         .then((res) => {
+            console.log(res)
             return res;
         })
         .catch((err) => {

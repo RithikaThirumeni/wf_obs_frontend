@@ -1,9 +1,9 @@
 import React from "react";
-
+import { MyDrawer } from "./Drawer";
 export function Home(){
     return (
         <div className="Home page">
-            <h3>Home Page</h3>
+            <MyDrawer/>
         </div>
     );
 }
