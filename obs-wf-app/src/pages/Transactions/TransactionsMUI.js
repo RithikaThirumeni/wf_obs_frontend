@@ -78,7 +78,7 @@ export default function TransactionMUI() {
               </Grid>
              
             </Grid>
-            <Copyright sx={{ pt: 4 }} />
+            {/* <Copyright sx={{ pt: 4 }} /> */}
           </Container>
         </Box>
       </Box>

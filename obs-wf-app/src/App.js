@@ -18,7 +18,6 @@ function App() {
   return (
     <div className="App">
       <div className='RouterPaths'>
-        <h3>Routing to different paths</h3>
         <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Login/>} />
@@ -38,21 +37,6 @@ function App() {
           <Route exact path="*" element={<ErrorPage/>} />
         </Routes>
         </BrowserRouter>
-        {/* <Router>
-          <Switch>
-            <Route path="/">{<Login/>}</Route>
-            <Route exact path="/login" element={<Login/>} />
-            <Route exact path="/home" element={<Home/>} />
-            <Route exact path="/register" element={<Register/>} />
-            <Route exact path="/customerdashboard" element={<Dashboard/>}/>
-            <Route path="/item1">{<CustomerDashboard/>}</Route>
-            <Route path="/item2">{<AccountsDetails/>}</Route>
-            <Route path="/item3">{<MakeTransactions/>}</Route>
-            <Route path="/item4">{<CreateAccount/>}</Route>
-            <Route path="/item5">{<ChangePassword/>}</Route>
-            <Route path="/item6">{<Logout/>}</Route> 
-          </Switch>
-        </Router> */}
       </div>
     </div>
   );

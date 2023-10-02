@@ -67,24 +67,19 @@ export default function AccountMUI() {
                 </Paper>
               </Grid>
              
-              <Grid item xs={12} md={12} lg={4}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+              <Grid item xs={12} md={6} lg={4}>
                   <AccountSummary />
-                </Paper>
+                
               </Grid>
-              <Grid item xs={12} md={12} lg={4}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+              <Grid item xs={12} md={6} lg={4}>
                   <AccountStatement />
-                </Paper>
               </Grid>
-              <Grid item xs={12} md={12} lg={4}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+              <Grid item xs={12} md={6} lg={4}>
                   <AccountBalance />
-                </Paper>
               </Grid>
               
             </Grid>
-            <Copyright sx={{ pt: 4 }} />
+            {/* <Copyright sx={{ pt: 4 }} /> */}
           </Container>
         </Box>
       </Box>

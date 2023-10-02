@@ -2,11 +2,23 @@ import * as React from 'react';
 import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import TableContainer from '@mui/material/TableContainer';
 import Title from './Title';
 import { Box } from '@mui/system';
+import styled from '@emotion/styled';
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
 export default function AccountSummaryTable({alert, accountSummary}) {
     console.log(accountSummary);
   return (
@@ -16,16 +28,16 @@ export default function AccountSummaryTable({alert, accountSummary}) {
           
         <Box>
           <Title>Account Summary</Title>
-        {/* <ul>{accountSummary?.map(item=>{return <li>{item[0].transactionID}</li>;})}</ul> */}
+        <TableContainer component={Paper}>
         <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Transaction ID</TableCell>
-            <TableCell>Date</TableCell>
-            <TableCell>Source Account</TableCell>
-            <TableCell>Receiver Account</TableCell>
-            <TableCell>Transaction Type</TableCell>
-            <TableCell align="right">Amount</TableCell>
+            <StyledTableCell>Transaction ID</StyledTableCell>
+            <StyledTableCell>Date</StyledTableCell>
+            <StyledTableCell>Source Account</StyledTableCell>
+            <StyledTableCell>Receiver Account</StyledTableCell>
+            <StyledTableCell>Transaction Type</StyledTableCell>
+            <StyledTableCell align="right">Amount</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -41,6 +53,7 @@ export default function AccountSummaryTable({alert, accountSummary}) {
           ))}
         </TableBody>
       </Table>
+      </TableContainer>
       </Box>)
         :(<p>{accountSummary}</p>)
         }

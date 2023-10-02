@@ -109,7 +109,7 @@ export default function AccountSignUp() {
         }
       })
       .catch((error) => {
-        alert("Error = " + error);
+        // alert("Error = " + error);
         toast.error(error);
       });
   };
@@ -238,7 +238,7 @@ export default function AccountSignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        {/* <Copyright sx={{ mt: 5 }} /> */}
       </Container>
     </ThemeProvider>
   );
