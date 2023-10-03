@@ -173,7 +173,7 @@ export default function SignInSide() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <MaterialLink href="#" variant="body2">
+                  <MaterialLink component={Link} to="/forgotpassword" variant="body2">
                     Forgot password?
                   </MaterialLink>
                 </Grid>

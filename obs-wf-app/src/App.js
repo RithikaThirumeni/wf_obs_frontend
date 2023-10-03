@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
 import { Home } from './components/Home';
 import { ErrorPage } from './components/ErrorPage';
 import { Login } from './pages/Login/Login';
+import { ForgotPassword } from './pages/Login/ForgotPassword';
 import { AdminLogin } from './pages/AdminLogin/AdminLogin';
 import { Register } from './pages/Register/Register';
 import { CustomerDashboard } from './pages/Dashboard/CustomerDashboard';
@@ -29,7 +30,7 @@ function App() {
           <Route exact path="/adminlogin" element={<AdminLogin/>} />
           <Route exact path="/admindashboard" element={<AdminDashboard/>} />
           <Route exact path="/admincreateaccount" element={<AdminCreateAccount/>}/>
-          
+          <Route exact path="/forgotpassword" element={<ForgotPassword/>}/>
           <Route exact path="/logout" element={<Login/>} />
           <Route exact path="/register" element={<Register/>} />\
           <Route exact path="/accounts" element={<Accounts/>} />

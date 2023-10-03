@@ -60,18 +60,18 @@ export default function TransactionMUI() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              <Grid item xs={4} md={4} lg={4}>
+              <Grid item xs={12} md={6} lg={4}>
               
                     <Deposit/>
                 
               </Grid>
              
-              <Grid item xs={4} md={4} lg={4}>
+              <Grid item xs={12} md={6} lg={4}>
                 
                   <Withdraw />
                 
               </Grid>
-              <Grid item xs={4} md={4} lg={4}>
+              <Grid item xs={12} md={6} lg={4}>
                 
                   <FundTransfer />
                 

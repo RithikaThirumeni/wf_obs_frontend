@@ -29,6 +29,10 @@ export default function ChangePassword({alert}) {
   const [alertText, setAlertText] = useState("");
   const [otp, setOtp] = useState("");
   const [password, setPassword] = useState("");
+  const [emailID, setEmailID] = useState("");
+  const hanldeEmailChange=(event)=>{
+    setEmailID(event.target.value);
+  }
   const handleOtpChange=(event)=>{
     setOtp(event.target.value);
   }
@@ -41,7 +45,7 @@ export default function ChangePassword({alert}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = {
-        "emailID":sessionStorage.getItem("emailID"),
+        "emailID":emailID,
         "password":password,
         "otp":Number(otp)
     }
@@ -76,6 +80,8 @@ export default function ChangePassword({alert}) {
                             id="emailID"
                             label="Email ID"
                             name="emailID"
+                            value={emailID}
+                                onChange={hanldeEmailChange}
                             />
                     </Grid>
                     {sendotp?(
